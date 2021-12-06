@@ -192,7 +192,7 @@ if [[ -n "$(ls -A "$GITHUB_WORKSPACE/amlogic_openwrt" 2>/dev/null)" ]]; then
 	mkdir -p $GITHUB_WORKSPACE/openwrt-armvirt
 	cp -Rf ${Home}/bin/targets/*/*/*.tar.gz $GITHUB_WORKSPACE/openwrt-armvirt/ && sync
 	sudo chmod +x make
-	sudo ./make -d -b "${amlogic_model}" -k "${amlogic_kernel}"
+	sudo ./make -d -b s905d -k "${amlogic_kernel}"
 	cp -Rf $GITHUB_WORKSPACE/out/* ${Home}/bin/targets/*/*
 else
 	TIME r "缺少打包所需的组合文件，您或者把diy-part.sh组合代码删除了"
@@ -624,6 +624,7 @@ TIME z " 系统空间      类型   总数  已用  可用 使用率"
 cd ../ && df -hT $PWD && cd openwrt
 echo
 echo
+TIME z "  本次编译固件服务器的CPU型号为: ${CPUNAME} "
 if [ -n "$(ls -A "${Home}/EXT4" 2>/dev/null)" ]; then
 	echo
 	echo
