@@ -614,7 +614,6 @@ if [[ ${REGULAR_UPDATE} == "true" ]]; then
 	TIME b "固件版本: ${Openwrt_Version}"
 	TIME b "云端路径: ${Github_UP_RELEASE}"
 	TIME g "《编译成功后，会自动把固件发布到指定地址，然后才会生成云端路径》"
-	TIME g "《普通的那个发布固件跟云端的发布路径是两码事，如果你不需要普通发布的可以不用打开发布功能》"
 	echo
 else
 	echo
@@ -623,8 +622,15 @@ echo
 TIME z " 系统空间      类型   总数  已用  可用 使用率"
 cd ../ && df -hT $PWD && cd openwrt
 echo
+TIME z "  本编译 服务器的 CPU型号为 [ ${CPUNAME} ]"
 echo
-TIME z "  本次编译固件服务器的CPU型号为: ${CPUNAME} "
+TIME z "  使用 核心数 为 [ ${CPUCORES} ], 线程数为 [ $(nproc) ]"
+echo
+TIME z "  随机分配到 E5系列CPU 编译是 最慢的, 8171M 的CPU 快很多，8272CL 的又比 8171M 快些！"
+echo
+TIME z "  如果编译的插件较多，而又分配到 E5系列 的 CPU，建议关闭 重新再来！"
+echo
+TIME z "  下面将使用 [ $(nproc) 线程 ] 编译固件"
 if [ -n "$(ls -A "${Home}/EXT4" 2>/dev/null)" ]; then
 	echo
 	echo
